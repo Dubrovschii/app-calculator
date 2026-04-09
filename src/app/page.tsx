@@ -1,9 +1,3 @@
-// import { CalculatorPage } from '@/components/calculator/CalculatorPage';
-
-// export default function Home() {
-//   return <CalculatorPage />;
-// }
-
 import type { Metadata } from 'next';
 import PageClient from './PageClient';
 
@@ -14,8 +8,6 @@ export async function generateMetadata(props: {
   const bookId = Number(id);
 
   try {
-    // const book = await fetchBookDetails({ bookId });
-
     return {
       title: `Клиентское устройство `,
       description: ` Клиентское устройство помогает в Вашей жизни`,
