@@ -2,9 +2,9 @@
 
 import { useState, useCallback } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { calculateROI } from '@/lib/calculator';
-import { DEFAULT_INPUTS } from '@/types/calculator';
-import type { CalculatorInputs } from '@/types/calculator';
+import { calculateROI } from '@/shared/lib/calculator';
+import { DEFAULT_INPUTS } from '@/shared/types/calculator';
+import type { CalculatorInputs } from '@/shared/types/calculator';
 
 export function useCalculator() {
   const [inputs, setInputs] = useState<CalculatorInputs>(DEFAULT_INPUTS);
@@ -20,7 +20,7 @@ export function useCalculator() {
     <K extends keyof CalculatorInputs>(key: K, value: CalculatorInputs[K]) => {
       setInputs((prev) => ({ ...prev, [key]: value }));
     },
-    []
+    [],
   );
 
   const resetInputs = useCallback(() => {

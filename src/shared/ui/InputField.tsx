@@ -1,6 +1,6 @@
 'use client';
 
-import { cn } from '@/lib/utils';
+import { cn } from '@/shared/lib/utils';
 
 interface InputFieldProps {
   label: string;
@@ -34,11 +34,13 @@ export function InputField({
         className={cn(
           'flex items-center gap-2 border border-obsidian-700 bg-obsidian-900/60',
           'rounded-lg px-4 py-3 transition-all duration-200',
-          'focus-within:border-gold-500 focus-within:bg-obsidian-900'
+          'focus-within:border-gold-500 focus-within:bg-obsidian-900',
         )}
       >
         {prefix && (
-          <span className="text-gold-500 font-bold text-sm shrink-0">{prefix}</span>
+          <span className="text-gold-500 font-bold text-sm shrink-0">
+            {prefix}
+          </span>
         )}
         <input
           type="number"
@@ -53,7 +55,7 @@ export function InputField({
           className={cn(
             'flex-1 bg-transparent text-obsidian-50 font-medium text-base',
             'outline-none placeholder:text-obsidian-600',
-            'appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none'
+            'appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none',
           )}
         />
         {suffix && (

@@ -1,9 +1,9 @@
 'use client';
 
 import { useState, useCallback } from 'react';
-import { useCalculator } from '@/hooks/useCalculator';
-import { CalculatorForm } from '@/components/calculator/CalculatorForm';
-import { ResultsPanel } from '@/components/calculator/ResultsPanel';
+import { useCalculator } from '@/shared/hooks/useCalculator';
+import { CalculatorForm } from '@/entities/calculator/CalculatorForm';
+import { ResultsPanel } from '@/entities/calculator/ResultsPanel';
 
 export function CalculatorPage() {
   const { inputs, result, updateInput, resetInputs } = useCalculator();
@@ -13,7 +13,8 @@ export function CalculatorPage() {
     if (!result) return;
     setIsExporting(true);
     try {
-      const { generatePDF } = await import('@/lib/pdf');
+      const { generatePDF } = await import('@/shared/lib/pdf');
+      // console.log(21312, generatePDF);
       await generatePDF(inputs, result);
     } catch (e) {
       console.error('PDF export error:', e);
@@ -45,7 +46,8 @@ export function CalculatorPage() {
             <span className="text-gold-400">автомобиля</span>
           </h1>
           <p className="text-obsidian-400 text-base lg:text-lg max-w-md mx-auto">
-            Рассчитайте чистую прибыль, срок окупаемости и годовую доходность вашего автомобиля
+            Рассчитайте чистую прибыль, срок окупаемости и годовую доходность
+            вашего автомобиля
           </p>
         </header>
 
@@ -69,7 +71,9 @@ export function CalculatorPage() {
               />
             ) : (
               <div className="rounded-2xl border border-obsidian-700/60 bg-obsidian-900/30 p-12 flex items-center justify-center">
-                <p className="text-obsidian-500">Введите параметры для расчёта</p>
+                <p className="text-obsidian-500">
+                  Введите параметры для расчёта
+                </p>
               </div>
             )}
           </div>
@@ -77,17 +81,24 @@ export function CalculatorPage() {
 
         {/* Example preset */}
         <div className="mt-8 rounded-xl border border-obsidian-700/40 bg-obsidian-900/20 p-5">
-          <p className="text-xs text-obsidian-500 tracking-widest uppercase mb-1">Пример</p>
+          <p className="text-xs text-obsidian-500 tracking-widest uppercase mb-1">
+            Пример
+          </p>
           <p className="text-sm text-obsidian-400">
-            <span className="text-obsidian-200 font-medium">Lamborghini Urus</span>
-            {' '}— стоимость $320,000, аренда $1,200/день, загрузка 18 дней, комиссия 40%, расходы $5,500/мес.
-            Чистая прибыль: <span className="text-gold-400 font-semibold">$7,460/мес.</span>{' '}
-            ROI: <span className="text-gold-400 font-semibold">~28% годовых</span>
+            <span className="text-obsidian-200 font-medium">
+              Lamborghini Urus
+            </span>{' '}
+            — стоимость $320,000, аренда $1,200/день, загрузка 18 дней, комиссия
+            40%, расходы $5,500/мес. Чистая прибыль:{' '}
+            <span className="text-gold-400 font-semibold">$7,460/мес.</span>{' '}
+            ROI:{' '}
+            <span className="text-gold-400 font-semibold">~28% годовых</span>
           </p>
         </div>
 
         <footer className="mt-12 text-center text-xs text-obsidian-600">
-          Расчёты носят ориентировочный характер и не являются финансовой консультацией
+          Расчёты носят ориентировочный характер и не являются финансовой
+          консультацией
         </footer>
       </div>
     </div>

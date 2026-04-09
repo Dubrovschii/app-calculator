@@ -1,9 +1,17 @@
-import type { CalculatorInputs, CalculatorResult } from '@/types/calculator';
-import { formatCurrency, formatPercent, formatMonths, formatYears } from './utils';
+import type {
+  CalculatorInputs,
+  CalculatorResult,
+} from '@/shared/types/calculator';
+import {
+  formatCurrency,
+  formatPercent,
+  formatMonths,
+  formatYears,
+} from './utils';
 
 export async function generatePDF(
   inputs: CalculatorInputs,
-  result: CalculatorResult
+  result: CalculatorResult,
 ): Promise<void> {
   const { jsPDF } = await import('jspdf');
   const autoTable = (await import('jspdf-autotable')).default;
@@ -32,7 +40,7 @@ export async function generatePDF(
     `Отчёт сформирован: ${now.toLocaleDateString('ru-RU')} ${now.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' })}`,
     pageW / 2,
     36,
-    { align: 'center' }
+    { align: 'center' },
   );
 
   // ── Section: Input parameters ────────────────────────────
@@ -51,11 +59,19 @@ export async function generatePDF(
     body: [
       ['Стоимость автомобиля', formatCurrency(inputs.carCost)],
       ['Средняя цена аренды в день', formatCurrency(inputs.dailyRentalPrice)],
-      ['Среднее кол-во дней аренды в месяц', `${inputs.rentalDaysPerMonth} дней`],
+      [
+        'Среднее кол-во дней аренды в месяц',
+        `${inputs.rentalDaysPerMonth} дней`,
+      ],
       ['Комиссия компании', `${inputs.companyCommissionPercent}%`],
       ['Ежемесячные расходы', formatCurrency(inputs.monthlyExpenses)],
     ],
-    headStyles: { fillColor: [20, 19, 16], textColor: [245, 158, 11], fontStyle: 'bold', fontSize: 10 },
+    headStyles: {
+      fillColor: [20, 19, 16],
+      textColor: [245, 158, 11],
+      fontStyle: 'bold',
+      fontSize: 10,
+    },
     bodyStyles: { fontSize: 10, textColor: [37, 35, 32] },
     alternateRowStyles: { fillColor: [248, 247, 244] },
     columnStyles: { 1: { halign: 'right', fontStyle: 'bold' } },
@@ -95,13 +111,14 @@ export async function generatePDF(
         `−${formatCurrency(inputs.monthlyExpenses)}`,
         'ежемесячные затраты',
       ],
-      [
-        'Чистая выплата инвестору',
-        formatCurrency(result.netMonthlyPayout),
-        '',
-      ],
+      ['Чистая выплата инвестору', formatCurrency(result.netMonthlyPayout), ''],
     ],
-    headStyles: { fillColor: [20, 19, 16], textColor: [245, 158, 11], fontStyle: 'bold', fontSize: 10 },
+    headStyles: {
+      fillColor: [20, 19, 16],
+      textColor: [245, 158, 11],
+      fontStyle: 'bold',
+      fontSize: 10,
+    },
     bodyStyles: { fontSize: 10, textColor: [37, 35, 32] },
     alternateRowStyles: { fillColor: [248, 247, 244] },
     columnStyles: {
@@ -132,7 +149,10 @@ export async function generatePDF(
     body: [
       ['Чистая выплата в месяц', formatCurrency(result.netMonthlyPayout)],
       ['Годовой доход', formatCurrency(result.annualPayout)],
-      ['Срок окупаемости', `${formatMonths(result.paybackMonths)} (${formatYears(result.paybackYears)})`],
+      [
+        'Срок окупаемости',
+        `${formatMonths(result.paybackMonths)} (${formatYears(result.paybackYears)})`,
+      ],
       ['Годовая доходность (ROI)', formatPercent(result.roi)],
     ],
     bodyStyles: { fontSize: 11, textColor: [37, 35, 32] },
@@ -150,7 +170,12 @@ export async function generatePDF(
   doc.setTextColor(107, 101, 88);
   doc.setFontSize(8);
   doc.setFont('helvetica', 'normal');
-  doc.text('Car ROI Calculator • Данный отчёт носит информационный характер', pageW / 2, pageH - 4.5, { align: 'center' });
+  doc.text(
+    'Car ROI Calculator • Данный отчёт носит информационный характер',
+    pageW / 2,
+    pageH - 4.5,
+    { align: 'center' },
+  );
 
   doc.save(`car-roi-report-${Date.now()}.pdf`);
 }

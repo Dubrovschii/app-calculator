@@ -1,21 +1,32 @@
 'use client';
 
-import { InputField } from '@/components/ui/InputField';
-import type { CalculatorInputs } from '@/types/calculator';
+import { InputField } from '@/shared/ui/InputField';
+import type { CalculatorInputs } from '@/shared/types/calculator';
 
 interface CalculatorFormProps {
   inputs: CalculatorInputs;
-  onUpdate: <K extends keyof CalculatorInputs>(key: K, value: CalculatorInputs[K]) => void;
+  onUpdate: <K extends keyof CalculatorInputs>(
+    key: K,
+    value: CalculatorInputs[K],
+  ) => void;
   onReset: () => void;
 }
 
-export function CalculatorForm({ inputs, onUpdate, onReset }: CalculatorFormProps) {
+export function CalculatorForm({
+  inputs,
+  onUpdate,
+  onReset,
+}: CalculatorFormProps) {
   return (
     <div className="rounded-2xl border border-obsidian-700/60 bg-obsidian-900/30 p-6 lg:p-8 backdrop-blur-sm">
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h2 className="text-lg font-bold text-obsidian-50 tracking-tight">Параметры</h2>
-          <p className="text-xs text-obsidian-500 mt-0.5">Введите данные автомобиля</p>
+          <h2 className="text-lg font-bold text-obsidian-50 tracking-tight">
+            Параметры
+          </h2>
+          <p className="text-xs text-obsidian-500 mt-0.5">
+            Введите данные автомобиля
+          </p>
         </div>
         <button
           onClick={onReset}

@@ -1,4 +1,7 @@
-import type { CalculatorInputs, CalculatorResult } from '@/types/calculator';
+import type {
+  CalculatorInputs,
+  CalculatorResult,
+} from '@/shared/types/calculator';
 
 export function calculateROI(inputs: CalculatorInputs): CalculatorResult {
   const {
@@ -13,7 +16,8 @@ export function calculateROI(inputs: CalculatorInputs): CalculatorResult {
   const companyCommission = (monthlyRevenue * companyCommissionPercent) / 100;
   const revenueAfterCommission = monthlyRevenue - companyCommission;
   const netMonthlyPayout = revenueAfterCommission - monthlyExpenses;
-  const paybackMonths = netMonthlyPayout > 0 ? carCost / netMonthlyPayout : Infinity;
+  const paybackMonths =
+    netMonthlyPayout > 0 ? carCost / netMonthlyPayout : Infinity;
   const paybackYears = paybackMonths / 12;
   const annualPayout = netMonthlyPayout * 12;
   const roi = (annualPayout / carCost) * 100;
